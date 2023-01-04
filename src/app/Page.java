@@ -1,5 +1,7 @@
 package app;
 
+import command_design_pattern.UpdateFooterCommand;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -21,7 +23,6 @@ public class Page extends JPanel implements KeyListener {
 
         textArea = new JTextArea();
         textArea.addKeyListener(this);
-        textArea.setText("Test");
         textArea.setLineWrap(true);
         textArea.setMargin(new Insets(5, 5, 5, 5));
         JScrollPane scrollPane = new JScrollPane(textArea);
@@ -69,7 +70,7 @@ public class Page extends JPanel implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
         if (e.getSource() == textArea) {
-            notePad.getFooter().setCharCountText(String.valueOf(textArea.getText().length()));
+            (new UpdateFooterCommand(notePad)).execute();
         }
     }
 

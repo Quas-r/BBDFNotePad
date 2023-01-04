@@ -12,7 +12,7 @@ public class UpdateFooterCommand extends Command{
 
     @Override
     public boolean execute() {
-
+        notePad.getFooter().setCharCountText(String.valueOf(notePad.getFocusedPage().getText().length()));
         return false;
     }
 }
