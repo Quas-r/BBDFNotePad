@@ -45,6 +45,10 @@ public class NotePad {
         frame.setVisible(true);
     }
 
+    public static Page openPage(String path) {
+
+    }
+
     public String getClipboard() {
         return clipboard;
     }
