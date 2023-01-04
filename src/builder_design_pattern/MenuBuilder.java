@@ -5,7 +5,6 @@ import command_design_pattern.CopyCommand;
 import command_design_pattern.PasteCommand;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

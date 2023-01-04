@@ -1,7 +1,6 @@
 package command_design_pattern;
 
 import app.NotePad;
-import app.Page;
 
 public class CopyCommand extends Command{
 

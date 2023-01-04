@@ -1,9 +1,14 @@
 package app;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.security.Key;
 
-public class Page extends JPanel {
+public class Page extends JPanel implements KeyListener {
 
     private String path;
     private JTextArea textArea;
@@ -15,6 +20,7 @@ public class Page extends JPanel {
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         textArea = new JTextArea();
+        textArea.addKeyListener(this);
         textArea.setText("Test");
         textArea.setLineWrap(true);
         textArea.setMargin(new Insets(5, 5, 5, 5));
@@ -60,4 +66,20 @@ public class Page extends JPanel {
         return new Page(p);
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+        if (e.getSource() == textArea) {
+            notePad.getFooter().setCharCountText(String.valueOf(textArea.getText().length()));
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }
