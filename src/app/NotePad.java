@@ -21,17 +21,26 @@ public class NotePad {
         mDirector = MenuDirector.getInstance();
         mBuilder = MenuBuilder.getInstance(this);
 
-        Page page = new Page(this);
+
+        JTabbedPane tabs = new JTabbedPane();
+
+        Page page = new Page(this, "/Quasar/Test.txt");
+        Page page2 = new Page(this, null);
+
+        tabs.add(page.getName(), page);
+        tabs.add(page2.getName(), page2);
+
         mDirector.buildPagefulMenuBar(mBuilder);
         focusedPage = page;
+
         footer = new Footer(focusedPage.getText().length());
 
-        frame = new JFrame("BBDF app.NotePad");
+        frame = new JFrame("BBDF NotePad");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(600, 600));
         frame.setMinimumSize(new Dimension(300, 300));
         frame.setJMenuBar(mBuilder.getMenuBar());
-        frame.add(page, BorderLayout.CENTER);
+        frame.add(tabs, BorderLayout.CENTER);
         frame.add(footer, BorderLayout.SOUTH);
         frame.setVisible(true);
     }

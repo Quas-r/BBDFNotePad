@@ -13,10 +13,13 @@ import java.security.Key;
 public class Page extends JPanel implements KeyListener {
 
     private String path;
+    private String name;
     private JTextArea textArea;
     private NotePad notePad;
 
-    public Page(NotePad notePad) {
+    public Page(NotePad notePad, String path) {
+        this.path = path;
+        parseName(path);
         this.notePad = notePad;
         this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -61,6 +64,22 @@ public class Page extends JPanel implements KeyListener {
 
     public String getSelectedText() {
         return textArea.getSelectedText();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void parseName(String path) {
+        if (path == null) {
+            name = "Adsiz.txt";
+            return;
+        }
+        int i = path.length() - 1;
+        while (i >= 0 && path.charAt(i) != '/') {
+            i--;
+        }
+        name = path.substring(i + 1);
     }
 
     public Page clone(Page p) {
