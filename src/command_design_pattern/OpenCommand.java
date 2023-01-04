@@ -5,7 +5,7 @@ import app.NotePad;
 import javax.swing.*;
 
 public class OpenCommand extends Command {
-    public String selectedPath;
+    public String path;
     public JFileChooser fileChooser;
 
     public OpenCommand(NotePad notePad) {
@@ -18,8 +18,9 @@ public class OpenCommand extends Command {
         int response = fileChooser.showOpenDialog(null);
 
         if (response == JFileChooser.CANCEL_OPTION) return false;
-        selectedPath = fileChooser.getSelectedFile().getAbsolutePath();
-
+        path = fileChooser.getSelectedFile().getAbsolutePath();
+        notePad.addPage(NotePad.openPage(notePad, path));
+        (new CheckPagesCommand(notePad)).execute();
         return false;
     }
 }

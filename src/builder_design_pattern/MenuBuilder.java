@@ -2,6 +2,7 @@ package builder_design_pattern;
 
 import app.NotePad;
 import command_design_pattern.CopyCommand;
+import command_design_pattern.OpenCommand;
 import command_design_pattern.PasteCommand;
 
 import javax.swing.*;
@@ -27,7 +28,10 @@ public class MenuBuilder {
         menu = new JMenu("File");
 
         JMenuItem open = new JMenuItem("Open");
-        //open.addActionListener(notePad);
+        open.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { (new OpenCommand(notePad)).execute(); }
+        });
         menu.add(open);
 
         if (pageful) {
@@ -49,7 +53,6 @@ public class MenuBuilder {
         JMenuItem copy = new JMenuItem("Copy");
         JMenuItem cut = new JMenuItem("Cut");
         JMenuItem paste = new JMenuItem("Paste");
-        JMenuItem find = new JMenuItem("Find");
         JMenuItem findAndReplace = new JMenuItem("Find & Replace");
         copy.addActionListener(new ActionListener() {
             @Override
@@ -69,7 +72,6 @@ public class MenuBuilder {
         menu.add(copy);
         menu.add(cut);
         menu.add(paste);
-        menu.add(find);
         menu.add(findAndReplace);
         menuBar.add(menu);
     }
