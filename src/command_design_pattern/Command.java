@@ -20,5 +20,5 @@ public abstract class Command {
         notePad.getFocusedPage().setText(backup);
     }
 
-    public abstract boolean execute();
+    public abstract void execute();
 }

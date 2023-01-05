@@ -11,12 +11,11 @@ public class UpdateFooterCommand extends Command{
     }
 
     @Override
-    public boolean execute() {
+    public void execute() {
         if (notePad.getFocusedPage() == null) {
             notePad.getFooter().setCharCountText("BBDF Notepad");
-            return false;
+            return;
         }
         notePad.getFooter().setCharCountText(String.valueOf(notePad.getFocusedPage().getText().length()));
-        return false;
     }
 }

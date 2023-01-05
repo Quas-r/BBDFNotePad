@@ -1,9 +1,7 @@
 package builder_design_pattern;
 
 import app.NotePad;
-import command_design_pattern.CopyCommand;
-import command_design_pattern.OpenCommand;
-import command_design_pattern.PasteCommand;
+import command_design_pattern.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,16 +26,32 @@ public class MenuBuilder {
         menu = new JMenu("File");
 
         JMenuItem open = new JMenuItem("Open");
+        JMenuItem newFile = new JMenuItem("New");
         open.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { (new OpenCommand(notePad)).execute(); }
         });
+        newFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { (new NewFileCommand(notePad, null)).execute(); }
+        });
         menu.add(open);
+        menu.add(newFile);
 
         if (pageful) {
             JMenuItem close = new JMenuItem("Close");
             JMenuItem save = new JMenuItem("Save");
             JMenuItem clone = new JMenuItem("Clone");
+
+            close.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) { (new CloseCommand(notePad)).execute(); }
+            });
+            clone.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) { (new NewFileCommand(notePad, notePad.getFocusedPage()))
+                        .execute(); }
+            });
 
             menu.add(close);
             menu.add(save);
@@ -60,15 +74,16 @@ public class MenuBuilder {
                 (new CopyCommand(notePad)).execute();
             }
         });
-        //cut.addActionListener();
+        cut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { (new CutCommand(notePad)).execute(); }
+        });
         paste.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 (new PasteCommand(notePad)).execute();
             }
         });
-        //find.addActionListener(notePad);
-        //findAndReplace.addActionListener(notePad);
         menu.add(copy);
         menu.add(cut);
         menu.add(paste);

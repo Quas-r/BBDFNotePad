@@ -33,7 +33,11 @@ public class Page extends JPanel implements KeyListener {
     }
 
     private Page(Page page) {
-        super();
+        this(page.notePad, null);
+        name = page.name;
+        int i = name.length() - 1;
+        while (i >= 0 && name.charAt(i) != '.') { i--; }
+        name = name.substring(0, i) + "(Clone)" + name.substring(i);
         this.path = null;
         setText(page.getText());
     }
@@ -66,6 +70,14 @@ public class Page extends JPanel implements KeyListener {
         return textArea.getSelectedText();
     }
 
+    public int getSelectionStart() {
+        return textArea.getSelectionStart();
+    }
+
+    public int getSelectionEnd() {
+        return textArea.getSelectionEnd();
+    }
+
     public String getName() {
         return name;
     }
@@ -82,8 +94,8 @@ public class Page extends JPanel implements KeyListener {
         name = path.substring(i + 1);
     }
 
-    public Page clone(Page p) {
-        return new Page(p);
+    public Page clone() {
+        return new Page(this);
     }
 
     @Override

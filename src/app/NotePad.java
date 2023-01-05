@@ -6,12 +6,14 @@ import command_design_pattern.CheckPagesCommand;
 import command_design_pattern.UpdateFooterCommand;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class NotePad {
+public class NotePad implements ChangeListener {
 
     private ArrayList<Page> pages = new ArrayList<Page>();
     private WelcomePage welcomePage;
@@ -20,6 +22,7 @@ public class NotePad {
     private MenuDirector mDirector;
     private MenuBuilder mBuilder;
     private Page focusedPage;
+    private int focusedPageIndex;
     private Footer footer;
     private JTabbedPane tabs;
 
@@ -29,6 +32,7 @@ public class NotePad {
 
 
         tabs = new JTabbedPane();
+        tabs.addChangeListener(this);
         welcomePage = new WelcomePage();
 
         mDirector.buildPagefulMenuBar(mBuilder);
@@ -50,10 +54,12 @@ public class NotePad {
         if (pageful) {
             try { frame.remove(welcomePage); } catch (Exception e) {}
             frame.add(tabs);
+            frame.repaint();
             return;
         }
         try { frame.remove(tabs); } catch (Exception e) {}
         frame.add(welcomePage);
+        frame.repaint();
     }
 
     public static Page openPage(NotePad notePad, String path) {
@@ -71,15 +77,28 @@ public class NotePad {
         } catch (Exception e) { System.out.println("File not found."); return null; }
     }
 
-    public void addPage(Page page) {
-        pages.add(page);
-        setFocusedPage(page);
-        tabs.add(page);
-        tabs.setSelectedComponent(page);
+    public void addPage() {
+        Page newPage = new Page(this, null);
+        pages.add(newPage);
+        tabs.add(newPage);
+        setFocusedPage(newPage);
     }
 
-    public ArrayList<Page> getPages() {
-        return pages;
+    public void addPage(Page page) {
+        pages.add(page);
+        tabs.add(page);
+        setFocusedPage(page);
+    }
+
+    public void removeCurrentPage() {
+        pages.remove(focusedPage);
+        tabs.remove(focusedPage);
+    }
+
+    public Page getPageAtIndex(int index) { return pages.get(index); }
+
+    public void setSelectedTab(Page page) {
+        tabs.setSelectedComponent(page);
     }
 
     public void setMenuBar(boolean pageful) {
@@ -92,7 +111,6 @@ public class NotePad {
         frame.setJMenuBar(mBuilder.getMenuBar());
     }
 
-
     public String getClipboard() {
         return clipboard;
     }
@@ -101,19 +119,29 @@ public class NotePad {
         this.clipboard = clipboard;
     }
 
+    public int getFocusedPageIndex() { return focusedPageIndex; }
+
     public Page getFocusedPage() {
         return focusedPage;
     }
 
     public void setFocusedPage(Page page) {
-        this.focusedPage = page;
+        focusedPage = page;
+        if (page == null) { focusedPageIndex = -1; return; }
+        tabs.setSelectedComponent(page);
+        focusedPageIndex = tabs.getSelectedIndex();
     }
 
     public Footer getFooter() {
         return footer;
     }
 
-    public void setFooter(Footer footer) {
-        this.footer = footer;
+    public boolean isEmpty() { return pages.isEmpty(); }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        if (e.getSource() == tabs) {
+            setFocusedPage((Page)tabs.getSelectedComponent());
+        }
     }
 }

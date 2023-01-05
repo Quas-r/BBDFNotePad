@@ -10,8 +10,7 @@ public class CopyCommand extends Command{
     }
 
     @Override
-    public boolean execute() {
+    public void execute() {
         notePad.getFocusedPage().setClipboard(notePad.getFocusedPage().getSelectedText());
-        return false;
     }
 }

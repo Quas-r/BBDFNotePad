@@ -10,12 +10,11 @@ public class PasteCommand extends Command{
     }
 
     @Override
-    public boolean execute() {
+    public void execute() {
         if (notePad.getFocusedPage().getClipboard() == null || notePad.getFocusedPage().getClipboard().isEmpty())
-            return false;
+            return;
 
         backup();
         notePad.getFocusedPage().insertTextAtCaret(notePad.getFocusedPage().getClipboard());
-        return true;
     }
 }

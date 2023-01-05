@@ -9,15 +9,14 @@ public class CheckPagesCommand extends Command {
     }
 
     @Override
-    public boolean execute() {
+    public void execute() {
         (new UpdateFooterCommand(notePad)).execute();
-        if (notePad.getPages().isEmpty()) {
+        if (notePad.isEmpty()) {
             notePad.setMenuBar(false);
             notePad.changeJTabbedPane(false);
-            return false;
+            return;
         }
         notePad.setMenuBar(true);
         notePad.changeJTabbedPane(true);
-        return false;
     }
 }

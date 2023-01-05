@@ -13,14 +13,13 @@ public class OpenCommand extends Command {
     }
 
     @Override
-    public boolean execute() {
+    public void execute() {
         fileChooser = new JFileChooser();
         int response = fileChooser.showOpenDialog(null);
 
-        if (response == JFileChooser.CANCEL_OPTION) return false;
+        if (response == JFileChooser.CANCEL_OPTION) return;
         path = fileChooser.getSelectedFile().getAbsolutePath();
         notePad.addPage(NotePad.openPage(notePad, path));
         (new CheckPagesCommand(notePad)).execute();
-        return false;
     }
 }
