@@ -97,7 +97,12 @@ public class MenuBuilder {
         menu = new JMenu("Help");
 
         JMenuItem developers = new JMenuItem("Developers");
-        //developers.addActionListener(notePad);
+        developers.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                (new DevelopersCommand(notePad)).execute();
+            }
+        });
         menu.add(developers);
         menuBar.add(menu);
     }
