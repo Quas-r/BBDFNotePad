@@ -73,6 +73,7 @@ public class NotePad implements ChangeListener {
 
             Page p = new Page(notePad, path);
             p.setText(text);
+            s.close();
             return p;
         } catch (Exception e) { System.out.println("File not found."); return null; }
     }
@@ -95,11 +96,11 @@ public class NotePad implements ChangeListener {
         tabs.remove(focusedPage);
     }
 
-    public Page getPageAtIndex(int index) { return pages.get(index); }
-
-    public void setSelectedTab(Page page) {
-        tabs.setSelectedComponent(page);
+    public void changeCurrentPageName(String name) {
+        tabs.setTitleAt(tabs.getSelectedIndex(), name);
     }
+
+    public Page getPageAtIndex(int index) { return pages.get(index); }
 
     public void setMenuBar(boolean pageful) {
         if (pageful) {

@@ -47,6 +47,10 @@ public class MenuBuilder {
                 @Override
                 public void actionPerformed(ActionEvent e) { (new CloseCommand(notePad)).execute(); }
             });
+            save.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) { (new SaveCommand(notePad)).execute(); }
+            });
             clone.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) { (new NewFileCommand(notePad, notePad.getFocusedPage()))
