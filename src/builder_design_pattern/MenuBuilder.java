@@ -71,7 +71,6 @@ public class MenuBuilder {
         JMenuItem copy = new JMenuItem("Copy");
         JMenuItem cut = new JMenuItem("Cut");
         JMenuItem paste = new JMenuItem("Paste");
-        JMenuItem findAndReplace = new JMenuItem("Find & Replace");
         copy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,7 +90,6 @@ public class MenuBuilder {
         menu.add(copy);
         menu.add(cut);
         menu.add(paste);
-        menu.add(findAndReplace);
         menuBar.add(menu);
     }
 
