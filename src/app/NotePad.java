@@ -116,9 +116,7 @@ public class NotePad implements ChangeListener {
         return clipboard;
     }
 
-    public void setClipboard(String clipboard) {
-        this.clipboard = clipboard;
-    }
+    public void setClipboard(String clipboard) { this.clipboard = clipboard; }
 
     public int getFocusedPageIndex() { return focusedPageIndex; }
 
